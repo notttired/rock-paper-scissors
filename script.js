@@ -1,20 +1,16 @@
-let humanScore = 0
-let computerScore = 0
+let humanScore = 0;
+let computerScore = 0;
+const scoreList = document.querySelector(".scoreList");
 
 function getComputerChoice() {
-    let randNum = (Math.random() * 3);
-    if (randNum <= 2) {
+    let randNum = (Math.floor(Math.random() * 3));
+    if (randNum === 2) {
         return "rock"
-    } else if (randNum <= 1) {
+    } else if (randNum === 1) {
         return "paper"
     } else {
         return "scissors"
     }
-}
-
-function getHumanChoice() {
-    let choice = window.prompt("Enter one of: Rock, paper, scissors");
-    return ((String(choice)).toLowerCase())
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -43,13 +39,38 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    for (let i = 0; i < 5; i ++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        console.log(playRound(humanChoice, computerChoice));
-        console.log("Your score: " + String(humanScore) + "\nComputer's score: " + String(computerScore));
+function updateScore() {
+    let roundContainer = document.createElement("li"); // check that all methods exist
+    let displayHuman = document.createElement("div");
+    let displayComputer = document.createElement("div");
+    displayHuman.textContent = humanScore;
+    displayComputer.textContent = computerScore;
+    roundContainer.appendChild(displayHuman);
+    roundContainer.appendChild(displayComputer);
+    scoreList.appendChild(roundContainer);
+    if ((humanScore == 5) || (computerScore == 5)) {
+        winner();
     }
 }
 
-playGame();
+function winner() {
+    let victor; // Variables created WITHIN an if can only be used inside
+    const message = document.createElement("h1");
+    const body = document.querySelector("body");
+    const scoreboard = document.querySelector(".scoreboard");
+
+    if (humanScore >= computerScore) {
+        victor = "You win!";
+    } else {victor = "You lose :(";}
+    message.textContent = `Score: ${humanScore} to ${computerScore}. ${victor}`;
+    document.body.insertBefore(message, scoreboard); // syntax? DON'T FORGET ;;;;;;;
+}
+
+const btnList = document.querySelectorAll(".btn");
+btnList.forEach((currentBtn) => {
+    currentBtn.addEventListener("click", function (e) {
+        console.log(playRound(String(currentBtn.textContent).toLowerCase(), getComputerChoice()));
+        console.log(String(currentBtn.textContent));
+        updateScore();
+    }); 
+});

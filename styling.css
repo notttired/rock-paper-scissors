@@ -1,0 +1,38 @@
+
+
+* {
+    color: black;
+}
+
+.btnContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+}
+
+.btn {
+    padding: 30px;
+    margin: 20px;
+
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    border: solid 5px black;
+
+    font-size: 2em;
+}
+
+.btn:hover {
+    background-color: grey;
+}
+
+.scoreList {
+    display: flex;
+}
+
+.scoreList>* {
+    margin: 10px;
+
+    list-style-type: none;
+}
